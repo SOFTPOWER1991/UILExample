@@ -33,6 +33,7 @@ public class UILExampleApplication extends Application {
     private void initImageLoader(Context applicationContext) {
 
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(applicationContext);
+        config.threadPoolSize(8);
         config.threadPriority(Thread.NORM_PRIORITY);
         config.denyCacheImageMultipleSizesInMemory();
         config.diskCacheFileNameGenerator(new Md5FileNameGenerator());

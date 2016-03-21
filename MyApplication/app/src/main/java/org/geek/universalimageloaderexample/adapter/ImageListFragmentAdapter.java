@@ -33,12 +33,13 @@ public class ImageListFragmentAdapter extends RecyclerView.Adapter<ImageListFrag
 
     private LayoutInflater layoutInflater;
 
+
     public ImageListFragmentAdapter(Context context, String[] array) {
         this.array = array;
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
-    }
 
+    }
 
 
     @Override
@@ -49,7 +50,7 @@ public class ImageListFragmentAdapter extends RecyclerView.Adapter<ImageListFrag
     @Override
     public void onBindViewHolder(ImageListHolder holder, int position) {
 
-        ImageLoader.getInstance().displayImage(array[position], holder.imageView , ImageLoadProxy.getOptions4PictureList());
+        ImageLoader.getInstance().displayImage(array[position], holder.imageView, ImageLoadProxy.getOptions4PictureList());
     }
 
     @Override

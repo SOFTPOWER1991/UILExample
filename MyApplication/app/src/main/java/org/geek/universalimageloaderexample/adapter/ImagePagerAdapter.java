@@ -19,10 +19,14 @@ import org.geek.universalimageloaderexample.utils.L;
  */
 public class ImagePagerAdapter extends FragmentPagerAdapter {
 
+    Fragment listFragment;
+    Fragment gridFragment;
 
     public ImagePagerAdapter(FragmentManager fm) {
         super(fm);
 
+        listFragment = new ImageListFragment();
+        gridFragment = new ImageGalleryFragment();
     }
 
     @Override
@@ -33,9 +37,9 @@ public class ImagePagerAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return new ImageListFragment();
+                return listFragment;
             case 1:
-                return new ImageGalleryFragment();
+                return gridFragment;
             default:
 
                 L.et("position", position + "======");
