@@ -2,9 +2,9 @@ package org.geek.universalimageloaderexample;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,9 +12,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import org.geek.universalimageloaderexample.fragment.ImageGridViewFragment;
+import org.geek.universalimageloaderexample.fragment.ImageListFragment;
+import org.geek.universalimageloaderexample.fragment.ImageListHeaderFragment;
+import org.geek.universalimageloaderexample.fragment.ImageViewpagerFragment;
+import org.geek.universalimageloaderexample.utils.L;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +32,11 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        fragment = new ImageListFragment();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment).commit();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -80,19 +95,38 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_list) {
             // Handle the camera action
+            L.et("main", "camera");
+
+            fragment = new ImageListFragment();
+
+        } else if (id == R.id.nav_grid) {
+            L.et("main", "gallery");
+
+            fragment = new ImageGridViewFragment();
+
+
         } else if (id == R.id.nav_gallery) {
+            L.et("main", "nav_gallery");
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_viewpager) {
+            L.et("main", "nav_viewpager");
+            fragment = new ImageViewpagerFragment();
         } else if (id == R.id.nav_share) {
-
+            L.et("main", "nav_share");
         } else if (id == R.id.nav_send) {
+            L.et("main", "send");
 
+        } else  if (id == R.id.nav_complex){
+            L.et("main" , "complex");
+
+        } else  if (id == R.id.nav_header){
+            L.et("main" , "nav_header");
+
+            fragment = new ImageListHeaderFragment();
         }
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
