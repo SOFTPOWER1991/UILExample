@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import org.geek.universalimageloaderexample.fragment.ImageComplexFragment;
+import org.geek.universalimageloaderexample.fragment.ImageGalleryFragment;
 import org.geek.universalimageloaderexample.fragment.ImageGridViewFragment;
 import org.geek.universalimageloaderexample.fragment.ImageListFragment;
 import org.geek.universalimageloaderexample.fragment.ImageListHeaderFragment;
@@ -106,25 +108,28 @@ public class MainActivity extends AppCompatActivity
 
             fragment = new ImageGridViewFragment();
 
-
         } else if (id == R.id.nav_gallery) {
             L.et("main", "nav_gallery");
+
+            fragment = new ImageGalleryFragment();
 
         } else if (id == R.id.nav_viewpager) {
             L.et("main", "nav_viewpager");
             fragment = new ImageViewpagerFragment();
+        } else if (id == R.id.nav_complex) {
+            L.et("main", "complex");
+
+            fragment = new ImageComplexFragment();
+
+        } else if (id == R.id.nav_header) {
+            L.et("main", "nav_header");
+
+            fragment = new ImageListHeaderFragment();
         } else if (id == R.id.nav_share) {
             L.et("main", "nav_share");
         } else if (id == R.id.nav_send) {
             L.et("main", "send");
 
-        } else  if (id == R.id.nav_complex){
-            L.et("main" , "complex");
-
-        } else  if (id == R.id.nav_header){
-            L.et("main" , "nav_header");
-
-            fragment = new ImageListHeaderFragment();
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment).commit();
 
