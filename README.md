@@ -1,6 +1,8 @@
 UIL出来也很久了，网上的使用方法大多不全，或者是基于老的版本而来的，有必要做些更新了。
 
-因此，我决定，自己把这个使用方法详细的分享出来，以下内容翻译自
+因此，下文内容，将基于：v1.9.5版本描述。
+
+以下内容翻译自
 [Android-Universal-Image-Loader wiki](https://github.com/nostra13/Android-Universal-Image-Loader/wiki)。
 
 关于UIL的介绍，不再赘述。参见，Github地址：[Android-Universal-Image-Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
