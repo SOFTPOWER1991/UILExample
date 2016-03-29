@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.geek.universalimageloaderexample.ImageLoadProxy;
+import org.geek.universalimageloaderexample.ImageLoadUtils;
 import org.geek.universalimageloaderexample.R;
 import org.geek.universalimageloaderexample.utils.L;
 
@@ -50,7 +50,7 @@ public class ImageListFragmentAdapter extends RecyclerView.Adapter<ImageListFrag
     @Override
     public void onBindViewHolder(ImageListHolder holder, int position) {
 
-        ImageLoader.getInstance().displayImage(array[position], holder.imageView, ImageLoadProxy.getOptions4PictureList());
+        ImageLoader.getInstance().displayImage(array[position], holder.imageView, ImageLoadUtils.getOptions4PictureList());
     }
 
     @Override

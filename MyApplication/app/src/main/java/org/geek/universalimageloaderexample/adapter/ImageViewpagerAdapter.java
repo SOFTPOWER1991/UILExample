@@ -15,7 +15,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import org.geek.universalimageloaderexample.Constants;
-import org.geek.universalimageloaderexample.ImageLoadProxy;
+import org.geek.universalimageloaderexample.ImageLoadUtils;
 import org.geek.universalimageloaderexample.R;
 
 /**
@@ -60,7 +60,7 @@ public class ImageViewpagerAdapter extends PagerAdapter {
         ImageView imageView = (ImageView) baseView.findViewById(R.id.image);
         final ProgressBar spinner = (ProgressBar) baseView.findViewById(R.id.loading);
 
-        ImageLoader.getInstance().displayImage(Constants.IMAGES[position], imageView, ImageLoadProxy.getOptions4PictureList(), new SimpleImageLoadingListener() {
+        ImageLoader.getInstance().displayImage(Constants.IMAGES[position], imageView, ImageLoadUtils.getOptions4PictureList(), new SimpleImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
                 spinner.setVisibility(View.VISIBLE);

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.geek.universalimageloaderexample.Constants;
-import org.geek.universalimageloaderexample.ImageLoadProxy;
+import org.geek.universalimageloaderexample.ImageLoadUtils;
 import org.geek.universalimageloaderexample.R;
 
 /**
@@ -62,7 +62,7 @@ public class ImageGalleryAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ImageLoader.getInstance().displayImage(Constants.IMAGES[position] , holder.imageView , ImageLoadProxy.getOptions4Gallery());
+        ImageLoader.getInstance().displayImage(Constants.IMAGES[position] , holder.imageView , ImageLoadUtils.getOptions4Gallery());
 
 
         return convertView;

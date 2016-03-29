@@ -3,9 +3,11 @@ package org.geek.universalimageloaderexample;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Environment;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -16,22 +18,19 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
-/**
- *
- */
-public class ImageLoadProxy {
+import java.io.File;
+
+public class ImageLoadUtils {
 
     private static final int MAX_DISK_CACHE = 1024 * 1024 * 50;
     private static final int MAX_MEMORY_CACHE = 1024 * 1024 * 10;
-
-    private static boolean isShowLog = false;
 
     private static ImageLoader imageLoader;
 
     public static ImageLoader getImageLoader() {
 
         if (imageLoader == null) {
-            synchronized (ImageLoadProxy.class) {
+            synchronized (ImageLoadUtils.class) {
                 if (imageLoader == null)
                     imageLoader = ImageLoader.getInstance();
             }
@@ -41,16 +40,22 @@ public class ImageLoadProxy {
     }
 
     public static void initImageLoader(Context context) {
-        ImageLoaderConfiguration.Builder build = new ImageLoaderConfiguration.Builder(context);
-        build.tasksProcessingOrder(QueueProcessingType.LIFO);
-        build.diskCacheSize(MAX_DISK_CACHE);
-        build.memoryCacheSize(MAX_MEMORY_CACHE);
-        build.memoryCache(new LruMemoryCache(MAX_MEMORY_CACHE));
+        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
+        config.threadPoolSize(8);
+        config.threadPriority(Thread.NORM_PRIORITY);
+        config.memoryCacheSize(MAX_MEMORY_CACHE);
+        config.denyCacheImageMultipleSizesInMemory();
+        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
+        config.diskCacheSize(MAX_DISK_CACHE); // 50 MiB
+        config.tasksProcessingOrder(QueueProcessingType.LIFO);
+        config.diskCache(new UnlimitedDiskCache(new File(Environment.getExternalStorageDirectory() + "/UILDemo/cache")));
 
-        if (BuildConfig.DEBUG && isShowLog) {
-            build.writeDebugLogs();
+        if (BuildConfig.DEBUG){
+            config.writeDebugLogs();
         }
-        getImageLoader().init(build.build());
+        getImageLoader().init(config.build());
+
+
     }
 
     /**
@@ -137,8 +142,7 @@ public class ImageLoadProxy {
     }
 
     /**
-     * 加载头像专用Options，默认加载中、失败和空url为 ic_loading_small
-     *
+     * DisplayImageOptions for user header
      * @return
      */
     public static DisplayImageOptions getOptions4Header() {
@@ -154,9 +158,7 @@ public class ImageLoadProxy {
     }
 
     /**
-     * 加载图片列表专用，加载前会重置View
-     * {@link DisplayImageOptions.Builder#resetViewBeforeLoading} = true
-     *
+     * DisplayImageOptions for Picture list
      * @return
      */
     public static DisplayImageOptions getOptions4PictureList() {
@@ -172,11 +174,9 @@ public class ImageLoadProxy {
     }
 
     /**
-     * gallery 图片加载
-     *
+     * DisplayImageOptions for gallery
      * @return
      */
-
     public static DisplayImageOptions getOptions4Gallery() {
         return new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.ic_empty)

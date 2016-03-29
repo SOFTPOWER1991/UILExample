@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.geek.universalimageloaderexample.ImageLoadProxy;
+import org.geek.universalimageloaderexample.ImageLoadUtils;
 import org.geek.universalimageloaderexample.R;
 import org.geek.universalimageloaderexample.utils.L;
 
@@ -51,7 +51,7 @@ public class ImageListHeaderFragmentAdapter extends RecyclerView.Adapter<ImageLi
 
         holder.textView.setText(array[position]);
 
-        ImageLoader.getInstance().displayImage(array[position], holder.imageView, ImageLoadProxy.getOptions4Header());
+        ImageLoader.getInstance().displayImage(array[position], holder.imageView, ImageLoadUtils.getOptions4Header());
     }
 
     @Override

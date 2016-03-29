@@ -45,6 +45,7 @@ public class ImagePagerAdapter extends FragmentPagerAdapter {
                 L.et("position", position + "======");
                 return null;
         }
+
     }
 
     @Override
